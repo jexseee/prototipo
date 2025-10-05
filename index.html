@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
+  <title>Pangui · Simulador XR Prevención Sismos</title>
+
+  <!-- A-Frame -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.7.1/aframe.min.js"></script>
+
+  <!-- AR.js (A-Frame) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ar.js/2.1.1/aframe-ar.min.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="ui-top">
+    <div class="brand">Pangui · Prevención de Sismos</div>
+    <div id="permStatus" class="pill">Cámara: —</div>
+  </div>
+
+  <div id="ui-left">
+    <div class="card">
+      <h3>Instrucciones</h3>
+      <ol id="instrList">
+        <li>Escanea el QR correspondiente a este punto.</li>
+        <li>Permite el uso de la cámara cuando el navegador lo pregunte.</li>
+        <li>Apunta al marcador impreso (patrón) para ver a Pangui.</li>
+      </ol>
+      <div class="controls">
+        <button id="playStep" class="btn">Reproducir voz</button>
+        <button id="nextStep" class="btn">Siguiente</button>
+        <button id="prevStep" class="btn">Anterior</button>
+      </div>
+      <div class="meta">
+        <small id="locationLabel">Ubicación: —</small>
+      </div>
+    </div>
+  </div>
+
+  <div id="message-bottom">Si Pangui no aparece: revise el marcador, contraste y permisos de cámara.</div>
+
+  <!-- A-Frame scene -->
+  <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
+    <!-- Marker: replace url to point to your generated assets/marker.patt -->
+    <a-marker id="pangui-marker" type="pattern" url="assets/marker.patt">
+      <!-- pangui PNG como plano sobre el marcador -->
+      <a-image id="pangui-image" src="assets/pangui.png"
+               position="0 0 0"
+               rotation="-90 0 0"
+               width="1.5" height="1.5"
+               transparent="true">
+      </a-image>
+
+      <!-- Globo de texto bajo la imagen -->
+      <a-entity id="dialog" position="0 1.05 0" rotation="-90 0 0"
+                text="value: Cargando...; align: center; width: 2.2; color: #fff; wrapCount: 30;">
+      </a-entity>
+    </a-marker>
+
+    <!-- Cámara por defecto -->
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
